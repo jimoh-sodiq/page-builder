@@ -13,12 +13,6 @@ import IconEye from "../components/icons/IconEye.vue";
 import IconTrash from "../components/icons/IconTrash.vue";
 import IconOutline from "../components/icons/IconOutline.vue";
 
-// const tabs = {
-//   TheBlocks,
-//   TheLayers,
-//   TheStyle,
-// };
-
 const currentTab = ref("TheStyle");
 
 const editor = ref(null);
