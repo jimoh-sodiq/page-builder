@@ -2,16 +2,13 @@
 import "grapesjs/dist/css/grapes.min.css";
 import grapesjs from "grapesjs";
 import { ref, onMounted } from "vue";
-import TheLayers from "../components/TheLayers.vue";
-import TheBlocks from "../components/TheBlocks.vue";
-import TheStyle from "../components/TheStyle.vue";
 import "grapesjs-preset-webpage";
 
-const tabs = {
-  TheBlocks,
-  TheLayers,
-  TheStyle,
-};
+// const tabs = {
+//   TheBlocks,
+//   TheLayers,
+//   TheStyle,
+// };
 
 const currentTab = ref("TheStyle");
 
@@ -25,65 +22,113 @@ onMounted(() => {
     width: "100%",
     // components: "<h1>Hello World Component!</h1>",
     storageManager: false,
-    panels: {
-      defaults: [{}],
+    layerManager: {
+      appendTo: "#layering",
     },
-    plugins: ["gjs-preset-webpage"],
+    styleManager: {
+      appendTo: "#stylus",
+    },
+    panels: {
+      defaults: [
+        // ...
+      ],
+    },
+    blockManager: {
+      appendTo: "#blocks",
+      blocks: [
+        {
+          category: "Navigation",
+          id: "section__4", // id is mandatory
+          label: "<b>Section</b>", // You can use HTML/SVG inside labels
+          attributes: { class: "gjs-block-section" },
+          content: `<section>
+          <h1>This is a simple title</h1>
+          <div>This is just a Lorem text: Lorem ipsum dolor sit amet</div>
+        </section>`,
+        },
+        {
+          category: "Headers",
+          id: "section", // id is mandatory
+          label: "<b>Section</b>", // You can use HTML/SVG inside labels
+          attributes: { class: "gjs-block-section" },
+          content: `<section>
+          <h1>This is a simple title</h1>
+          <div>This is just a Lorem text: Lorem ipsum dolor sit amet</div>
+        </section>`,
+        },
+        {
+          category: "Heroes",
+          id: "section__1", // id is mandatory
+          label: "<b>Section</b>", // You can use HTML/SVG inside labels
+          attributes: { class: "gjs-block-section" },
+          content: `<section>
+          <h1>This is a simple title</h1>
+          <div>This is just a Lorem text: Lorem ipsum dolor sit amet</div>
+        </section>`,
+        },
+        {
+          category: "Content",
+          id: "section__2", // id is mandatory
+          label: "<b>Section</b>", // You can use HTML/SVG inside labels
+          attributes: { class: "gjs-block-section" },
+          content: `<section>
+          <h1>This is a simple title</h1>
+          <div>This is just a Lorem text: Lorem ipsum dolor sit amet</div>
+        </section>`,
+        },
+        {
+          category: "Contact Us",
+          id: "section__3", // id is mandatory
+          label: "<b>Section</b>", // You can use HTML/SVG inside labels
+          attributes: { class: "gjs-block-section" },
+          content: `<section>
+          <h1>This is a simple title</h1>
+          <div>This is just a Lorem text: Lorem ipsum dolor sit amet</div>
+        </section>`,
+        },
+      ],
+    },
+    plugins: ["gjs-blocks-basic", "gjs-navbar"],
     pluginsOpts: {
-      "gjs-preset-webpage": {
-        // options
+      "gjs-navbar": {},
+      "gjs-blocks-basic": {
+        category: "Primitives",
+        blocks: [
+          "column1",
+          "column2",
+          "column3",
+          "text",
+          "link",
+          "image",
+          "video",
+        ],
       },
     },
   });
 
-  // editor.value.Panels.addPanel({
-  //   id: "panel-top",
-  //   el: ".panel__top",
-  // });
-
-  // editor.value.Panels.addPanel({
-  //   id: "basic-actions",
-  //   el: ".panel__basic-actions",
-  //   buttons: [
-  //     {
-  //       id: "visibility",
-  //       active: true, // active by default
-  //       className: "btn-toggle-borders",
-  //       label: "<u>B</u>",
-  //       command: "sw-visibility", // Built-in command
-  //     },
-  //     {
-  //       id: "export",
-  //       className: "btn-open-export",
-  //       label: "<span>#</span>",
-  //       command: "export-template",
-  //       context: "export-template", // For grouping context of buttons from the same panel
-  //     },
-  //     {
-  //       id: "show-json",
-  //       className: "btn-show-json",
-  //       label: "JSON",
-  //       context: "show-json",
-  //       command(editor) {
-  //         editor.value.Modal.setTitle("Components JSON")
-  //           .setContent(
-  //             `<textarea style="width:100%; height: 250px;">
-  //           ${JSON.stringify(editor.getComponents())}
-  //         </textarea>`
-  //           )
-  //           .open();
-  //       },
-  //     },
-  //   ],
-  // });
+  console.log(editor.value.Commands.getAll());
 });
+
+function clearCanvas() {
+  if (editor.value) {
+    if (confirm("Are you sure you want to clear the canvas")) {
+      editor.value.runCommand("core:preview");
+    } else return;
+  }
+}
+
+function undoPreviousAction() {
+  if (editor.value) {
+    editor.value.runCommand("core:canvas-clear");
+  }
+}
 </script>
 
 <template>
   <div class="w-full text-white font-semibold">
     <nav class="w-full bg-[#001E26] h-[3rem] flex">
       <div
-        class="h-full w-[15rem] flex justify-between items-center text-[#00DC82]"
+        class="h-full min-w-[13.5rem] max-w-[13.5rem] flex justify-between items-center text-[#00DC82] mr-6 border-r border-black"
       >
         <span
           @click="currentTab = 'TheStyle'"
@@ -134,21 +179,37 @@ onMounted(() => {
           </svg>
         </span>
       </div>
-      <div class="panel__top h-full">
-        <div class="panel__basic-actions"></div>
-      </div>
+      <!-- Logo -->
+
+      <h2 class="bg-red-500 p-2 rounded cursor-pointer" @click="clearCanvas()">
+        clear
+      </h2>
+
+      <!-- Responsive Screen -->
     </nav>
 
     <section
       class="relative flex w-full h-[calc(100vh-3rem)] bg-gray-200 editor-row"
     >
-      <KeepAlive>
-        <component :is="tabs[currentTab]"></component>
-      </KeepAlive>
+      <aside
+        v-show="currentTab == 'TheBlocks'"
+        id="blocks"
+        class="overflow-y-scroll myblocks h-full bg-[#001E26] w-[16rem] py-4 px-1 flex flex-col border-t border-black scrollbar-hide"
+      ></aside>
+      <aside
+        v-show="currentTab == 'TheStyle'"
+        id="stylus"
+        class="overflow-y-scroll myblocks h-full bg-[#001E26] w-[16rem] py-4 px-1 flex flex-col border-t border-black scrollbar-hide"
+      ></aside>
+      <aside
+        v-show="currentTab == 'TheLayers'"
+        id="layering"
+        class="overflow-y-scroll myblocks h-full bg-[#001E26] w-[16rem] py-4 px-1 flex flex-col border-t border-black scrollbar-hide"
+      ></aside>
 
-      <main class="w-full p-4">
-        <div id="gjs">
-          <h1>Welcome man</h1>
+      <main class="w-full p-4 overflow-hidden">
+        <div id="gjs" class="scrollbar-hide">
+          <h1 class="text-center">Made with love by Jimoh Sodiq</h1>
         </div>
       </main>
     </section>
@@ -157,8 +218,15 @@ onMounted(() => {
 
 <style>
 #gjs {
-  border: 2px solid #109d62;
+  border: 1px solid #109d62;
   height: 100%;
+  overflow-y: scroll;
+}
+
+.gjs-block {
+  width: 100%;
+  height: auto;
+  min-height: auto;
 }
 
 .gjs-cv-canvas {
@@ -179,7 +247,28 @@ onMounted(() => {
 .panel__basic-actions {
   position: initial;
   background: transparent;
-  color: rgb(2, 32, 5);
+  color: #001e26;
   font-weight: bold;
+}
+
+.gjs-one-bg {
+  background-color: #001e26;
+}
+
+/* Secondary color for the text color */
+.gjs-two-color {
+  color: #00dc82;
+}
+
+/* Tertiary color for the background */
+.gjs-three-bg {
+  background-color: rgb(2, 32, 5);
+  color: #00dc82;
+}
+
+/* Quaternary color for the text color */
+.gjs-four-color,
+.gjs-four-color-h:hover {
+  color: #00dc82;
 }
 </style>
