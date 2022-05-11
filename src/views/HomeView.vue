@@ -12,6 +12,7 @@ import IconRedo from "../components/icons/IconRedo.vue";
 import IconEye from "../components/icons/IconEye.vue";
 import IconTrash from "../components/icons/IconTrash.vue";
 import IconOutline from "../components/icons/IconOutline.vue";
+import IconRobot from "../components/icons/IconRobot.vue";
 
 const currentTab = ref("TheStyle");
 
@@ -33,12 +34,55 @@ onMounted(() => {
     layerManager: {
       appendTo: "#layering",
     },
+    traitManager: {
+      appendTo: "#traiters",
+    },
     styleManager: {
       appendTo: "#stylus",
     },
     panels: {
       defaults: [
         // ...
+      ],
+    },
+    commands: {
+      defaults: [
+        {
+          id: "set-device-desktop",
+          run() {
+            editor.value.setDevice("Desktop");
+          },
+        },
+        {
+          id: "set-device-tablet",
+          run() {
+            editor.value.setDevice("Tablet");
+          },
+        },
+        {
+          id: "set-device-mobile",
+          run() {
+            editor.value.setDevice("Mobile");
+          },
+        },
+      ],
+    },
+    deviceManager: {
+      devices: [
+        {
+          name: "Desktop",
+          width: "", // default size
+        },
+        {
+          name: "Tablet",
+          width: "530px",
+          widthMedia: "768px", // default size
+        },
+        {
+          name: "Mobile",
+          width: "320px", // this value will be used on canvas width
+          widthMedia: "480px", // this value will be used in CSS @media
+        },
       ],
     },
     blockManager: {
@@ -114,7 +158,6 @@ onMounted(() => {
     },
   });
 
-  console.log(editor.value.Commands.getAll());
 });
 
 function clearCanvas() {
@@ -126,34 +169,10 @@ function clearCanvas() {
 }
 
 function activateCommand(command) {
-  if (editor.value) {
-    editor.value.runCommand(command);
-  }
+  if (editor.value && editor.value.Commands.isActive(command)) {
+    editor.value.stopCommand(command);
+  } else editor.value.runCommand(command);
 }
-
-// function redoPreviousAction() {
-//   if (editor.value) {
-//     editor.value.runCommand("core:canvas-clear");
-//   }
-// };
-
-// function showBoxOutline() {
-//   if (editor.value) {
-//     editor.value.runCommand("core:canvas-clear");
-//   }
-// };
-
-// function showCode() {
-//   if (editor.value) {
-//     editor.value.runCommand("core:canvas-clear");
-//   }
-// };
-
-// function previewPage() {
-//   if (editor.value) {
-//     editor.value.runCommand("core:canvas-clear");
-//   }
-// };
 </script>
 
 <template>
@@ -164,7 +183,7 @@ function activateCommand(command) {
       >
         <span
           @click="currentTab = 'TheStyle'"
-          class="text-center w-1/3 h-full flex items-center justify-center cursor-pointer text-xl"
+          class="text-center w-1/4 h-full flex items-center justify-center cursor-pointer text-xl"
           :class="currentTab == 'TheStyle' ? 'bg-[#012A35]' : 'bg-[#001E26]'"
         >
           <svg width="1.13em" height="1em" viewBox="0 0 576 512">
@@ -177,7 +196,7 @@ function activateCommand(command) {
 
         <span
           @click="currentTab = 'TheLayers'"
-          class="text-center w-1/3 h-full flex items-center justify-center cursor-pointer text-xl"
+          class="text-center w-1/4 h-full flex items-center justify-center cursor-pointer text-xl"
           :class="currentTab == 'TheLayers' ? 'bg-[#012A35]' : 'bg-[#001E26]'"
         >
           <svg width="1em" height="1em" viewBox="0 0 24 24">
@@ -198,7 +217,7 @@ function activateCommand(command) {
 
         <span
           @click="currentTab = 'TheBlocks'"
-          class="text-center w-1/3 h-full flex items-center justify-center cursor-pointer text-xl"
+          class="text-center w-1/4 h-full flex items-center justify-center cursor-pointer text-xl"
           :class="currentTab == 'TheBlocks' ? 'bg-[#012A35]' : 'bg-[#001E26]'"
         >
           <svg width="1em" height="1em" viewBox="0 0 36 36">
@@ -210,6 +229,13 @@ function activateCommand(command) {
             <path fill="none" d="M0 0h36v36H0z"></path>
           </svg>
         </span>
+        <span
+          @click="currentTab = 'TheTraits'"
+          class="text-center w-1/4 h-full flex items-center justify-center cursor-pointer text-xl text-[#00DC82]"
+          :class="currentTab == 'TheTraits' ? 'bg-[#012A35]' : 'bg-[#001E26]'"
+        >
+          <IconRobot />
+        </span>
       </div>
       <!-- Logo -->
 
@@ -218,9 +244,18 @@ function activateCommand(command) {
       </h2> -->
       <div class="flex h-full w-full justify-between px-4 py-1 text-[#00DC82]">
         <div class="flex items-center justify-center space-x-3">
-          <IconComputer class="cursor-pointer w-6 h-6" />
-          <IconTablet class="cursor-pointer w-4.5 h-4.5" />
-          <IconMobile class="cursor-pointer w-4 h-4" />
+          <IconComputer
+            class="cursor-pointer w-6 h-6"
+            @click="activateCommand('set-device-desktop')"
+          />
+          <IconTablet
+            class="cursor-pointer w-4.5 h-4.5"
+            @click="activateCommand('set-device-tablet')"
+          />
+          <IconMobile
+            class="cursor-pointer w-4 h-4"
+            @click="activateCommand('set-device-mobile')"
+          />
         </div>
         <div class="flex items-center justify-center space-x-4">
           <IconOutline
@@ -243,14 +278,14 @@ function activateCommand(command) {
         <div class="flex items-center justify-center space-x-4">
           <button
             @click="activateCommand('core:preview')"
-            class="w-24 hover:opacity-90 font-semibold flex space-x-2 cursor-pointer bg-[#00DC82] text-[#001E26] p-1 rounded text-sm items-center justify-center"
+            class="w-24 select-none hover:opacity-90 font-semibold flex space-x-2 cursor-pointer bg-[#00DC82] text-[#001E26] p-1 rounded text-sm items-center justify-center"
           >
             <span>Preview</span>
             <IconEye class="cursor-pointer w-5 h-5" />
           </button>
           <button
             @click="clearCanvas"
-            class="w-24 hover:opacity-90 font-semibold flex space-x-2 cursor-pointer bg-[#00DC82] text-[#001E26] p-1 rounded text-sm items-center justify-center"
+            class="w-24 select-none hover:opacity-90 font-semibold flex space-x-2 cursor-pointer bg-[#00DC82] text-[#001E26] p-1 rounded text-sm items-center justify-center"
           >
             <span>Clear</span>
             <IconTrash class="w-5 h-5" />
@@ -277,6 +312,11 @@ function activateCommand(command) {
       <aside
         v-show="currentTab == 'TheLayers'"
         id="layering"
+        class="overflow-y-scroll myblocks h-full bg-[#001E26] w-[16rem] py-4 px-1 flex flex-col border-t border-black scrollbar-hide"
+      ></aside>
+      <aside
+        v-show="currentTab == 'TheTraits'"
+        id="traiters"
         class="overflow-y-scroll myblocks h-full bg-[#001E26] w-[16rem] py-4 px-1 flex flex-col border-t border-black scrollbar-hide"
       ></aside>
 
