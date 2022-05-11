@@ -120,16 +120,40 @@ onMounted(() => {
 function clearCanvas() {
   if (editor.value) {
     if (confirm("Are you sure you want to clear the canvas")) {
-      editor.value.runCommand("core:preview");
+      editor.value.runCommand("core:canvas-clear");
     } else return;
   }
 }
 
-function undoPreviousAction() {
+function activateCommand(command) {
   if (editor.value) {
-    editor.value.runCommand("core:canvas-clear");
+    editor.value.runCommand(command);
   }
 }
+
+// function redoPreviousAction() {
+//   if (editor.value) {
+//     editor.value.runCommand("core:canvas-clear");
+//   }
+// };
+
+// function showBoxOutline() {
+//   if (editor.value) {
+//     editor.value.runCommand("core:canvas-clear");
+//   }
+// };
+
+// function showCode() {
+//   if (editor.value) {
+//     editor.value.runCommand("core:canvas-clear");
+//   }
+// };
+
+// function previewPage() {
+//   if (editor.value) {
+//     editor.value.runCommand("core:canvas-clear");
+//   }
+// };
 </script>
 
 <template>
@@ -199,17 +223,35 @@ function undoPreviousAction() {
           <IconMobile class="cursor-pointer w-4 h-4" />
         </div>
         <div class="flex items-center justify-center space-x-4">
-          <IconOutline class="cursor-pointer w-4.9 h-4.9" />
-          <IconUndo class="cursor-pointer w-4.8 h-4.8" />
-          <IconRedo class="cursor-pointer w-4.8 h-4.8" />
-          <IconCode class="cursor-pointer w-5 h-5" />
+          <IconOutline
+            @click="activateCommand('core:component-outline')"
+            class="cursor-pointer w-4.9 h-4.9"
+          />
+          <IconUndo
+            @click="activateCommand('core:undo')"
+            class="cursor-pointer w-4.8 h-4.8"
+          />
+          <IconRedo
+            @click="activateCommand('core:redo')"
+            class="cursor-pointer w-4.8 h-4.8"
+          />
+          <IconCode
+            @click="activateCommand('export-template')"
+            class="cursor-pointer w-5 h-5"
+          />
         </div>
         <div class="flex items-center justify-center space-x-4">
-          <button class="w-24 hover:opacity-90 font-semibold flex space-x-2 cursor-pointer bg-[#00DC82] text-[#001E26] p-1 rounded text-sm items-center justify-center">
+          <button
+            @click="activateCommand('core:preview')"
+            class="w-24 hover:opacity-90 font-semibold flex space-x-2 cursor-pointer bg-[#00DC82] text-[#001E26] p-1 rounded text-sm items-center justify-center"
+          >
             <span>Preview</span>
             <IconEye class="cursor-pointer w-5 h-5" />
           </button>
-          <button class="w-24 hover:opacity-90 font-semibold flex space-x-2 cursor-pointer bg-[#00DC82] text-[#001E26] p-1 rounded text-sm items-center justify-center">
+          <button
+            @click="clearCanvas"
+            class="w-24 hover:opacity-90 font-semibold flex space-x-2 cursor-pointer bg-[#00DC82] text-[#001E26] p-1 rounded text-sm items-center justify-center"
+          >
             <span>Clear</span>
             <IconTrash class="w-5 h-5" />
           </button>
