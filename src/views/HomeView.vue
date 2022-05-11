@@ -136,7 +136,7 @@ function undoPreviousAction() {
   <div class="w-full text-white font-semibold">
     <nav class="w-full bg-[#001E26] h-[3rem] flex">
       <div
-        class="h-full min-w-[13.5rem] max-w-[13.5rem] flex justify-between items-center text-[#00DC82] mr-6 border-r border-black"
+        class="h-full min-w-[13.5rem] max-w-[13.5rem] flex justify-between items-center text-[#00DC82] border-r border-black"
       >
         <span
           @click="currentTab = 'TheStyle'"
@@ -189,9 +189,32 @@ function undoPreviousAction() {
       </div>
       <!-- Logo -->
 
-      <h2 class="bg-red-500 p-2 rounded cursor-pointer" @click="clearCanvas()">
+      <!-- <h2 class="bg-red-500 p-2 rounded cursor-pointer" @click="clearCanvas()">
         clear
-      </h2>
+      </h2> -->
+      <div class="flex h-full w-full justify-between px-4 py-1 text-[#00DC82]">
+        <div class="flex items-center justify-center space-x-3">
+          <IconComputer class="cursor-pointer w-6 h-6" />
+          <IconTablet class="cursor-pointer w-4.5 h-4.5" />
+          <IconMobile class="cursor-pointer w-4 h-4" />
+        </div>
+        <div class="flex items-center justify-center space-x-4">
+          <IconOutline class="cursor-pointer w-4.9 h-4.9" />
+          <IconUndo class="cursor-pointer w-4.8 h-4.8" />
+          <IconRedo class="cursor-pointer w-4.8 h-4.8" />
+          <IconCode class="cursor-pointer w-5 h-5" />
+        </div>
+        <div class="flex items-center justify-center space-x-4">
+          <button class="w-24 hover:opacity-90 font-semibold flex space-x-2 cursor-pointer bg-[#00DC82] text-[#001E26] p-1 rounded text-sm items-center justify-center">
+            <span>Preview</span>
+            <IconEye class="cursor-pointer w-5 h-5" />
+          </button>
+          <button class="w-24 hover:opacity-90 font-semibold flex space-x-2 cursor-pointer bg-[#00DC82] text-[#001E26] p-1 rounded text-sm items-center justify-center">
+            <span>Clear</span>
+            <IconTrash class="w-5 h-5" />
+          </button>
+        </div>
+      </div>
 
       <!-- Responsive Screen -->
     </nav>
@@ -215,9 +238,11 @@ function undoPreviousAction() {
         class="overflow-y-scroll myblocks h-full bg-[#001E26] w-[16rem] py-4 px-1 flex flex-col border-t border-black scrollbar-hide"
       ></aside>
 
-      <main class="w-full p-4 overflow-hidden">
+      <main class="w-full overflow-hidden">
         <div id="gjs" class="scrollbar-hide">
-          <h1 class="text-center">Made with love by Jimoh Sodiq</h1>
+          <h1 class="text-center text-2xl p-4 text-red-500">
+            Made with love by Jimoh Sodiq
+          </h1>
         </div>
       </main>
     </section>
@@ -226,15 +251,13 @@ function undoPreviousAction() {
 
 <style>
 #gjs {
-  border: 1px solid #109d62;
-  height: 100%;
+  min-height: 100vh;
   overflow-y: scroll;
 }
 
 .gjs-block {
   width: 100%;
-  height: auto;
-  min-height: auto;
+  min-height: 90px;
 }
 
 .gjs-cv-canvas {
