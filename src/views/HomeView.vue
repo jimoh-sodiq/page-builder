@@ -271,9 +271,76 @@ function activateCommand(command) {
 
       <main class="w-full overflow-hidden">
         <div id="gjs" class="scrollbar-hide">
-          <h1 class="text-center text-2xl p-4 text-red-500">
+          <h1 class="text-center text-2xl p-4 text-[#001E26]">
             Made with love by Jimoh Sodiq
           </h1>
+          <div class="flex flex-col space-y-3 px-12 text-[#001E26]">
+            <div class="flex space-x-6 items-center">
+              <svg width="1.13em" height="1em" viewBox="0 0 576 512">
+                <path
+                  fill="currentColor"
+                  d="M224 263.3c.2-30 14.4-58.1 38.4-76.1L499.1 9.605c18.6-13.958 44.5-12.57 61.6 3.295c17 15.86 20.1 41.64 7.5 61.17L406.5 324.1c-15.2 23.6-39.9 39.1-67.2 43L224 263.3zM320 400c0 61.9-50.1 112-112 112H64c-17.67 0-32-14.3-32-32s14.33-32 32-32h4.81c17.63 0 29.59-18.9 27.78-36.4c-.39-3.8-.59-7.7-.59-11.6c0-60.4 47.9-109.7 107.7-111.9l116.1 104.4c.1 1.6.2 5 .2 7.5z"
+                ></path>
+              </svg>
+              <h2>style selected components</h2>
+            </div>
+            <div class="flex space-x-6 items-center">
+              <svg width="1em" height="1em" viewBox="0 0 24 24">
+                <path
+                  d="M21.484 7.125l-9.022-5a1.003 1.003 0 0 0-.968 0l-8.978 4.96a1 1 0 0 0-.003 1.748l9.022 5.04a.995.995 0 0 0 .973.001l8.978-5a1 1 0 0 0-.002-1.749z"
+                  fill="currentColor"
+                ></path>
+                <path
+                  d="M12 15.856l-8.515-4.73l-.971 1.748l9 5a1 1 0 0 0 .971 0l9-5l-.971-1.748L12 15.856z"
+                  fill="currentColor"
+                ></path>
+                <path
+                  d="M12 19.856l-8.515-4.73l-.971 1.748l9 5a1 1 0 0 0 .971 0l9-5l-.971-1.748L12 19.856z"
+                  fill="currentColor"
+                ></path>
+              </svg>
+              <h2>view the componet layering</h2>
+            </div>
+            <div class="flex space-x-6 items-center">
+              <svg width="1em" height="1em" viewBox="0 0 36 36">
+                <path
+                  fill="currentColor"
+                  d="m31.42 9.09l-13-6a1 1 0 0 0-.84 0l-13 6A1 1 0 0 0 4 10v17a1 1 0 0 0 .58.91l13 6a1 1 0 0 0 .84 0l13-6A1 1 0 0 0 32 27V10a1 1 0 0 0-.58-.91ZM18 14.9L7.39 10L18 5.1L28.61 10Zm12 11.46l-11 5.08v-14.8l11-5.08Z"
+                  class="clr-i-solid clr-i-solid-path-1"
+                ></path>
+                <path fill="none" d="M0 0h36v36H0z"></path>
+              </svg>
+              <h2>add new components</h2>
+            </div>
+            <div class="flex space-x-6 items-center">
+              <IconRobot />
+              <h2>add attributes to components</h2>
+            </div>
+            <div class="flex space-x-6 items-center">
+              <IconOutline />
+              <h2>toggle outline of components</h2>
+            </div>
+            <div class="flex space-x-6 items-center">
+              <IconUndo />
+              <h2>undo last action</h2>
+            </div>
+            <div class="flex space-x-6 items-center">
+              <IconRedo />
+              <h2>Redo last action</h2>
+            </div>
+            <div class="flex space-x-6 items-center">
+              <IconCode />
+              <h2>View page source code</h2>
+            </div>
+
+            <h2>Built for devices with large screen size, touch functionality is not enabled yet.</h2>
+          </div>
+          <h2
+          @click="clearCanvas"
+            class="font-bold mt-3 text-center text-xl bg-[#001E26] text-[#00dc82] hover:opacity-90 mx-auto w-fit select-none rounded cursor-pointer p-3"
+          >
+            Clear the canvas for a clean page
+          </h2>
         </div>
       </main>
     </section>
