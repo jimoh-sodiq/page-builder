@@ -270,7 +270,7 @@ function activateCommand(command) {
       ></aside>
 
       <main class="w-full overflow-hidden">
-        <div id="gjs" class="scrollbar-hide">
+        <div id="gjs" class="scrollbar-hide h-[100vh-3rem]">
           <h1 class="text-center text-2xl p-4 text-[#001E26]">
             Made with love by Jimoh Sodiq
           </h1>
@@ -335,6 +335,7 @@ function activateCommand(command) {
 
             <h2>Double click on any componet to edit or delete it</h2>
             <h2>Built for devices with large screen size, touch functionality is not enabled yet.</h2>
+            <h2>Build different views for different screen sizes.</h2>
           </div>
           <h2
           @click="clearCanvas"
@@ -350,7 +351,6 @@ function activateCommand(command) {
 
 <style>
 #gjs {
-  min-height: 100vh;
   overflow-y: scroll;
 }
 
