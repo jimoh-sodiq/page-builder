@@ -333,6 +333,7 @@ function activateCommand(command) {
               <h2>View page source code</h2>
             </div>
 
+            <h2>Double click on any componet to edit or delete it</h2>
             <h2>Built for devices with large screen size, touch functionality is not enabled yet.</h2>
           </div>
           <h2
