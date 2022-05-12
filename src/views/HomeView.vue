@@ -3,6 +3,7 @@ import "grapesjs/dist/css/grapes.min.css";
 import grapesjs from "grapesjs";
 import { ref, onMounted } from "vue";
 import "grapesjs-preset-webpage";
+import { componentBlocks } from "../assets/blocks.js";
 import IconComputer from "../components/icons/IconComputer.vue";
 import IconTablet from "../components/icons/IconTablet.vue";
 import IconMobile from "../components/icons/IconMobile.vue";
@@ -87,58 +88,7 @@ onMounted(() => {
     },
     blockManager: {
       appendTo: "#blocks",
-      blocks: [
-        {
-          category: "Navigation",
-          id: "section__4", // id is mandatory
-          label: "<b class='text-red-500'>Section</b>", // You can use HTML/SVG inside labels
-          attributes: { class: "gjs-block-section" },
-          content: `<section>
-          <h1>This is a simple title</h1>
-          <div>This is just a Lorem text: Lorem ipsum dolor sit amet</div>
-        </section>`,
-        },
-        {
-          category: "Headers",
-          id: "section", // id is mandatory
-          label: "<b>Section</b>", // You can use HTML/SVG inside labels
-          attributes: { class: "gjs-block-section" },
-          content: `<section>
-          <h1>This is a simple title</h1>
-          <div>This is just a Lorem text: Lorem ipsum dolor sit amet</div>
-        </section>`,
-        },
-        {
-          category: "Heroes",
-          id: "section__1", // id is mandatory
-          label: "<b>Section</b>", // You can use HTML/SVG inside labels
-          attributes: { class: "gjs-block-section" },
-          content: `<section>
-          <h1>This is a simple title</h1>
-          <div>This is just a Lorem text: Lorem ipsum dolor sit amet</div>
-        </section>`,
-        },
-        {
-          category: "Content",
-          id: "section__2", // id is mandatory
-          label: "<b>Section</b>", // You can use HTML/SVG inside labels
-          attributes: { class: "gjs-block-section" },
-          content: `<section>
-          <h1>This is a simple title</h1>
-          <div>This is just a Lorem text: Lorem ipsum dolor sit amet</div>
-        </section>`,
-        },
-        {
-          category: "Contact Us",
-          id: "section__3", // id is mandatory
-          label: "<b>Section</b>", // You can use HTML/SVG inside labels
-          attributes: { class: "gjs-block-section" },
-          content: `<section>
-          <h1>This is a simple title</h1>
-          <div>This is just a Lorem text: Lorem ipsum dolor sit amet</div>
-        </section>`,
-        },
-      ],
+      blocks: componentBlocks,
     },
     plugins: ["gjs-blocks-basic", "gjs-navbar"],
     pluginsOpts: {
@@ -157,7 +107,6 @@ onMounted(() => {
       },
     },
   });
-
 });
 
 function clearCanvas() {
