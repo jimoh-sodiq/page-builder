@@ -229,7 +229,6 @@ function activateCommand(command) {
             @click="activateCommand('export-template')"
             class="cursor-pointer w-5 h-5"
           />
-          {{ editor?.getDirtyCount()}}
         </div>
         <div class="flex items-center justify-center space-x-4">
           <button
