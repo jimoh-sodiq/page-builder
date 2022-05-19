@@ -26,7 +26,13 @@ onMounted(() => {
     height: "100%",
     width: "100%",
     // components: "<h1>Hello World Component!</h1>",
-    storageManager: false,
+    storageManager: {
+    id: 'gjs-',             // Prefix identifier that will be used on parameters
+    type: 'local',          // Type of the storage
+    autosave: true,         // Store data automatically
+    autoload: true,         // Autoload stored data on init
+    stepsBeforeSave: 1,     // If autosave enabled, indicates how many changes are necessary before store method is triggered
+  },
 
     canvas: {
       styles: [],
@@ -90,7 +96,7 @@ onMounted(() => {
       appendTo: "#blocks",
       blocks: componentBlocks,
     },
-    plugins: ["gjs-blocks-basic", "gjs-navbar"],
+    plugins: ["gjs-blocks-basic", "gjs-navbar", "grapesjs-touch"],
     pluginsOpts: {
       "gjs-navbar": {},
       "gjs-blocks-basic": {
@@ -223,6 +229,7 @@ function activateCommand(command) {
             @click="activateCommand('export-template')"
             class="cursor-pointer w-5 h-5"
           />
+          {{ editor?.getDirtyCount()}}
         </div>
         <div class="flex items-center justify-center space-x-4">
           <button
