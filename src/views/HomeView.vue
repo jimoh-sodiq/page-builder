@@ -212,6 +212,7 @@ function activateCommand(command) {
             @click="activateCommand('set-device-mobile')"
           />
         </div>
+        <router-link to="/components">Components</router-link>
         <div class="flex items-center justify-center space-x-4">
           <IconOutline
             @click="activateCommand('core:component-outline')"
