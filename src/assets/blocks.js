@@ -844,6 +844,18 @@ export const componentBlocks = [
 
   // faq
   {
+    category: "CONTACT",
+    id: "contact__1", // id is mandatory
+    label: "<b>Contact</b>", // You can use HTML/SVG inside labels
+    attributes: { class: "gjs-block-section" },
+    content: `
+    <!-- Section 1 -->
+    <section class="py-24 bg-white">
+        
+    </section>
+    `,
+  },
+  {
     category: "FAQ",
     id: "faq__1", // id is mandatory
     label: "<b>faq</b>", // You can use HTML/SVG inside labels
