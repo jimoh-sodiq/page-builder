@@ -25,14 +25,14 @@ onMounted(() => {
     fromElement: true,
     height: "100%",
     width: "100%",
-    // components: "<h1>Hello World Component!</h1>",
+
     storageManager: {
-    id: 'gjs-',             // Prefix identifier that will be used on parameters
-    type: 'local',          // Type of the storage
-    autosave: true,         // Store data automatically
-    autoload: true,         // Autoload stored data on init
-    stepsBeforeSave: 1,     // If autosave enabled, indicates how many changes are necessary before store method is triggered
-  },
+      id: "gjs-", // Prefix identifier that will be used on parameters
+      type: "local", // Type of the storage
+      autosave: true, // Store data automatically
+      autoload: true, // Autoload stored data on init
+      stepsBeforeSave: 1, // If autosave enabled, indicates how many changes are necessary before store method is triggered
+    },
 
     canvas: {
       styles: [],
@@ -96,7 +96,7 @@ onMounted(() => {
       appendTo: "#blocks",
       blocks: componentBlocks,
     },
-    plugins: ["gjs-blocks-basic", "gjs-navbar", "grapesjs-touch"],
+    plugins: ["gjs-blocks-basic", "gjs-navbar"],
     pluginsOpts: {
       "gjs-navbar": {},
       "gjs-blocks-basic": {
@@ -194,9 +194,6 @@ function activateCommand(command) {
       </div>
       <!-- Logo -->
 
-      <!-- <h2 class="bg-red-500 p-2 rounded cursor-pointer" @click="clearCanvas()">
-        clear
-      </h2> -->
       <div class="flex h-full w-full justify-between px-4 py-1 text-[#00DC82]">
         <div class="flex items-center justify-center space-x-3">
           <IconComputer
@@ -212,7 +209,6 @@ function activateCommand(command) {
             @click="activateCommand('set-device-mobile')"
           />
         </div>
-        <router-link to="/components">Components</router-link>
         <div class="flex items-center justify-center space-x-4">
           <IconOutline
             @click="activateCommand('core:component-outline')"
@@ -341,11 +337,14 @@ function activateCommand(command) {
             </div>
 
             <h2>Double click on any componet to edit or delete it</h2>
-            <h2>Built for devices with large screen size, touch functionality is not enabled yet.</h2>
+            <h2>
+              Built for devices with large screen size, touch functionality is
+              not enabled yet.
+            </h2>
             <h2>Build different views for different screen sizes.</h2>
           </div>
           <h2
-          @click="clearCanvas"
+            @click="clearCanvas"
             class="font-bold mt-3 text-center text-xl bg-[#001E26] text-[#00dc82] hover:opacity-90 mx-auto w-fit select-none rounded cursor-pointer p-3"
           >
             Clear the canvas for a clean page
