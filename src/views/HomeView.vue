@@ -3,136 +3,149 @@ import "grapesjs/dist/css/grapes.min.css";
 import grapesjs from "grapesjs";
 import { ref, onMounted } from "vue";
 import "grapesjs-preset-webpage";
-import { componentBlocks } from "../assets/blocks.js";
-import IconComputer from "../components/icons/IconComputer.vue";
-import IconTablet from "../components/icons/IconTablet.vue";
-import IconMobile from "../components/icons/IconMobile.vue";
-import IconCode from "../components/icons/IconCode.vue";
-import IconUndo from "../components/icons/IconUndo.vue";
-import IconRedo from "../components/icons/IconRedo.vue";
-import IconEye from "../components/icons/IconEye.vue";
-import IconTrash from "../components/icons/IconTrash.vue";
-import IconOutline from "../components/icons/IconOutline.vue";
-import IconRobot from "../components/icons/IconRobot.vue";
+// import { componentBlocks } from "../assets/blocks.js";
+// import IconComputer from "../components/icons/IconComputer.vue";
+// import IconTablet from "../components/icons/IconTablet.vue";
+// import IconMobile from "../components/icons/IconMobile.vue";
+// import IconCode from "../components/icons/IconCode.vue";
+// import IconUndo from "../components/icons/IconUndo.vue";
+// import IconRedo from "../components/icons/IconRedo.vue";
+// import IconEye from "../components/icons/IconEye.vue";
+// import IconTrash from "../components/icons/IconTrash.vue";
+// import IconOutline from "../components/icons/IconOutline.vue";
+// import IconRobot from "../components/icons/IconRobot.vue";
 
-const currentTab = ref("TheStyle");
+// const currentTab = ref("TheStyle");
 
 const editor = ref(null);
 
 onMounted(() => {
   editor.value = grapesjs.init({
-    container: "#gjs",
     fromElement: true,
-    height: "100%",
-    width: "100%",
-
-    storageManager: {
-      id: "gjs-", // Prefix identifier that will be used on parameters
-      type: "local", // Type of the storage
-      autosave: true, // Store data automatically
-      autoload: true, // Autoload stored data on init
-      stepsBeforeSave: 1, // If autosave enabled, indicates how many changes are necessary before store method is triggered
-    },
-
-    canvas: {
-      styles: [],
-      scripts: ["https://cdn.tailwindcss.com"],
-    },
-    layerManager: {
-      appendTo: "#layering",
-    },
-    traitManager: {
-      appendTo: "#traiters",
-    },
-    styleManager: {
-      appendTo: "#stylus",
-    },
-    panels: {
-      defaults: [
-        // ...
-      ],
-    },
-    commands: {
-      defaults: [
-        {
-          id: "set-device-desktop",
-          run() {
-            editor.value.setDevice("Desktop");
-          },
-        },
-        {
-          id: "set-device-tablet",
-          run() {
-            editor.value.setDevice("Tablet");
-          },
-        },
-        {
-          id: "set-device-mobile",
-          run() {
-            editor.value.setDevice("Mobile");
-          },
-        },
-      ],
-    },
-    deviceManager: {
-      devices: [
-        {
-          name: "Desktop",
-          width: "", // default size
-        },
-        {
-          name: "Tablet",
-          width: "530px",
-          widthMedia: "768px", // default size
-        },
-        {
-          name: "Mobile",
-          width: "320px", // this value will be used on canvas width
-          widthMedia: "480px", // this value will be used in CSS @media
-        },
-      ],
-    },
-    blockManager: {
-      appendTo: "#blocks",
-      blocks: componentBlocks,
-    },
-    plugins: ["gjs-blocks-basic", "gjs-navbar"],
+    container: "#gjs",
+    plugins: ["gjs-preset-webpage"],
     pluginsOpts: {
-      "gjs-navbar": {},
-      "gjs-blocks-basic": {
-        category: "Primitives",
-        blocks: [
-          "column1",
-          "column2",
-          "column3",
-          "text",
-          "link",
-          "image",
-          "video",
-        ],
+      "gjs-preset-webpage": {
+        /* ...options */
       },
     },
   });
 });
 
-function clearCanvas() {
-  if (editor.value) {
-    if (confirm("Are you sure you want to clear the canvas")) {
-      editor.value.runCommand("core:canvas-clear");
-    } else return;
-  }
-}
+// onMounted(() => {
+//   editor.value = grapesjs.init({
+//     container: "#gjs",
+//     fromElement: true,
+//     height: "100%",
+//     width: "100%",
 
-function activateCommand(command) {
-  if (editor.value && editor.value.Commands.isActive(command)) {
-    editor.value.stopCommand(command);
-  } else editor.value.runCommand(command);
-}
+//     storageManager: {
+//       id: "gjs-", // Prefix identifier that will be used on parameters
+//       type: "local", // Type of the storage
+//       autosave: true, // Store data automatically
+//       autoload: true, // Autoload stored data on init
+//       stepsBeforeSave: 1, // If autosave enabled, indicates how many changes are necessary before store method is triggered
+//     },
+
+//     canvas: {
+//       styles: [],
+//       scripts: ["https://cdn.tailwindcss.com"],
+//     },
+//     layerManager: {
+//       appendTo: "#layering",
+//     },
+//     traitManager: {
+//       appendTo: "#traiters",
+//     },
+//     styleManager: {
+//       appendTo: "#stylus",
+//     },
+//     panels: {
+//       defaults: [
+//
+//       ],
+//     },
+//     commands: {
+//       defaults: [
+//         {
+//           id: "set-device-desktop",
+//           run() {
+//             editor.value.setDevice("Desktop");
+//           },
+//         },
+//         {
+//           id: "set-device-tablet",
+//           run() {
+//             editor.value.setDevice("Tablet");
+//           },
+//         },
+//         {
+//           id: "set-device-mobile",
+//           run() {
+//             editor.value.setDevice("Mobile");
+//           },
+//         },
+//       ],
+//     },
+//     deviceManager: {
+//       devices: [
+//         {
+//           name: "Desktop",
+//           width: "", // default size
+//         },
+//         {
+//           name: "Tablet",
+//           width: "530px",
+//           widthMedia: "768px", // default size
+//         },
+//         {
+//           name: "Mobile",
+//           width: "320px", // this value will be used on canvas width
+//           widthMedia: "480px", // this value will be used in CSS @media
+//         },
+//       ],
+//     },
+//     blockManager: {
+//       appendTo: "#blocks",
+//       blocks: componentBlocks,
+//     },
+//     plugins: ["gjs-blocks-basic", "gjs-navbar"],
+//     pluginsOpts: {
+//       "gjs-navbar": {},
+//       "gjs-blocks-basic": {
+//         category: "Primitives",
+//         blocks: [
+//           "column1",
+//           "column2",
+//           "column3",
+//           "text",
+//           "link",
+//           "image",
+//           "video",
+//         ],
+//       },
+//     },
+//   });
+// });
+
+// function clearCanvas() {
+//   if (editor.value) {
+//     if (confirm("Are you sure you want to clear the canvas")) {
+//       editor.value.runCommand("core:canvas-clear");
+//     } else return;
+//   }
+// }
+
+// function activateCommand(command) {
+//   if (editor.value && editor.value.Commands.isActive(command)) {
+//     editor.value.stopCommand(command);
+//   } else editor.value.runCommand(command);
+// }
 </script>
 
 <template>
-  <div class="w-full text-white font-semibold">
-    <nav class="w-full bg-[#001E26] h-[3rem] flex">
+  <div class="w-full text-white font-semibold" id="gjs">
+    <!-- <nav class="w-full bg-[#001E26] h-[3rem] flex">
       <div
         class="h-full min-w-[13.5rem] max-w-[13.5rem] flex justify-between items-center text-[#00DC82] border-r border-black"
       >
@@ -192,7 +205,7 @@ function activateCommand(command) {
           <IconRobot />
         </span>
       </div>
-      <!-- Logo -->
+      
 
       <div class="flex h-full w-full justify-between px-4 py-1 text-[#00DC82]">
         <div class="flex items-center justify-center space-x-3">
@@ -245,7 +258,7 @@ function activateCommand(command) {
         </div>
       </div>
 
-      <!-- Responsive Screen -->
+      
     </nav>
 
     <section
@@ -351,7 +364,7 @@ function activateCommand(command) {
           </h2>
         </div>
       </main>
-    </section>
+    </section> -->
   </div>
 </template>
 
